@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash 
 echo "Welcome to Snake And Ladder Simulator"
 
 #!Initialize variables & constants
@@ -10,14 +10,17 @@ SNAKE=2
 #!Function To set playerPosition according to playing Options like NO_Play or Snake or Ladder
 function setPlayerMoves() {
 
+while [ $playerPosition -le 100  ]
+do
 	#!Storing dice values between 1 to 6 & set playing Options
 
 	dieValue=$((RANDOM % 6 + 1))
 	playingOptions=$((RANDOM % 3))
 
 	#! Increment player Position according to $playingOptions
-	
+
 	case $playingOptions in
+
 		$NO_PLAY)
 			playerPosition=$playerPosition
 			;;
@@ -28,7 +31,17 @@ function setPlayerMoves() {
 			playerPosition=$((playerPosition - dieValue))
 			;;
 	esac
-echo "Player Position : "$playerPosition
+
+		#! Ensures playerPosition is not below 0
+
+		if [ $playerPosition -lt 0 ]
+		then
+			playerPosition=0
+		fi
+
+	echo "Player Position : "$playerPosition
+done
+
 }
 
 #!Start game
