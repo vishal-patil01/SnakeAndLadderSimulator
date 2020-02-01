@@ -8,6 +8,8 @@ SNAKE=2
 
 #!Initializing Variables
 playerPosition=0
+diceRoll=0
+declare -A gameStatistics
 
 #!Function To set playerPosition according to playing Options like NO_Play or Snake or Ladder
 function setPlayerMoves() {
@@ -15,6 +17,8 @@ function setPlayerMoves() {
 	#!Storing dice values between 1 to 6 & set playing Options
 	dieValue=$((RANDOM % 6 + 1))
 	playingOptions=$((RANDOM % 3))
+	#!increment Dice Count
+	((diceRoll++))
 
 	#! Increment player Position according to $playingOptions
 	case $playingOptions in
@@ -31,6 +35,8 @@ function setPlayerMoves() {
 
 		#!Reset player Position if position is not between 0 to 100 
 		resetWrongPosition
+		#!storing diceCount and player positions in Dictionary
+		gameStatistics[DiceRoll:$diceRoll]=$playerPosition
 }
 
 function playUntilWin() {
